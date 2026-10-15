@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Naira Budget</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=DM+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap topbar__in">
+    <div class="brand">
+      <span class="brand__mark" aria-hidden="true">₦</span>
+      <span class="brand__name">Naira Budget</span>
+    </div>
+    <nav class="nav" aria-label="Sections">
+      <a href="#salary" id="nav-salary">Salary</a>
+      <a href="#alloc">Where it goes</a>
+      <a href="#spending">Spending</a>
+      <a href="#tax" id="nav-tax">Tax</a>
+      <a href="#daily">Daily log</a>
+      <a href="#goal">Savings goal</a>
+    </nav>
+    <span class="pill">Nigeria Tax Act · in force 2026</span>
+  </div>
+</header>
+
+<main class="wrap main">
+
+  <section class="intro" aria-labelledby="page-title">
+    <div class="intro__text">
+      <span class="eyebrow" id="job-label" hidden></span>
+      <h1 id="page-title">Your month</h1>
+      <p class="muted" id="intro-text">What you take home after tax and pension, and where it goes. Amounts are monthly unless stated.</p>
+    </div>
+    <div class="intro__tools">
+      <div class="field field--inline">
+        <span class="field__label" id="role-label">I am a</span>
+        <div class="seg seg--role" role="group" aria-labelledby="role-label">
+          <button id="role-worker" type="button" aria-pressed="true">Worker</button>
+          <button id="role-student" type="button" aria-pressed="false">Student</button>
+        </div>
+      </div>
+      <div class="field field--inline">
+        <label class="field__label" for="month">Month</label>
+        <input id="month" type="month">
+      </div>
+      <button id="clear" type="button" class="btn btn--ghost">Start fresh</button>
+      <button id="reset" type="button" class="btn btn--ghost">Show examples</button>
+    </div>
+  </section>
+
+  <p class="note" id="example-note">These figures are examples. Change them to your own, or press Start fresh. Everything you enter stays in this browser.</p>
+
+  <section class="stats" id="stats" aria-label="Monthly summary">
+    <div class="stat">
+      <span class="stat__label" id="s-gross-label">Gross salary</span>
+      <span class="stat__value" id="s-gross">₦0</span>
+      <span class="stat__sub" id="s-gross-sub"></span>
+    </div>
+    <div class="stat">
+      <span class="stat__label" id="s-tax-label">PAYE tax</span>
+      <span class="stat__value" id="s-tax">₦0</span>
+      <span class="stat__sub" id="s-tax-sub"></span>
+    </div>
+    <div class="stat" id="stat-pension">
+      <span class="stat__label">Pension</span>
+      <span class="stat__value" id="s-pension">₦0</span>
+      <span class="stat__sub" id="s-pension-sub"></span>
+    </div>
+    <div class="stat stat--take">
+      <span class="stat__label" id="s-take-label">Take-home pay</span>
+      <span class="stat__value" id="s-take">₦0</span>
+      <span class="stat__sub" id="s-take-sub"></span>
+    </div>
+  </section>
+
+  <div class="cols">
+
+    <div class="col col--side">
+
+      <section class="card" id="salary" aria-labelledby="salary-title">
+        <h2 id="salary-title">Your salary</h2>
+
+        <div class="fields" id="worker-fields">
+        <div class="field">
+          <label class="field__label" for="job">Your job (optional)</label>
+          <input id="job" type="text" autocomplete="off" placeholder="e.g. Teacher, nurse, accountant">
+          <span class="field__hint">Shown at the top of the page. Tax depends on income, not on job title.</span>
+        </div>
+
+        <div class="seg" role="group" aria-label="Enter your amounts per">
+          <button id="period-month" type="button" aria-pressed="false">Per month</button>
+          <button id="period-year" type="button" aria-pressed="true">Per year</button>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="gross">Gross salary</label>
+          <span class="money"><input id="gross" type="text" inputmode="numeric" autocomplete="off" placeholder="0"></span>
+          <span class="field__hint">Before any tax or pension is taken out.</span>
+        </div>
+
+        <label class="check" for="no-split">
+          <input id="no-split" type="checkbox">
+          <span>I don't know my basic, housing and transport split</span>
+        </label>
+
+        <div class="field" id="btt-field">
+          <label class="field__label" for="btt">Basic + housing + transport</label>
+          <span class="money"><input id="btt" type="text" inputmode="numeric" autocomplete="off" placeholder="0"></span>
+          <span class="field__hint">Pension is worked out on this amount, not on your full gross. Your payslip lists it.</span>
+        </div>
+
+        <p class="field__hint" id="estimate-note" hidden>We assume about 75% of your gross counts towards pension. The result is approximate.</p>
+
+        <div class="field">
+          <label class="field__label" for="rent">Rent you pay</label>
+          <span class="money"><input id="rent" type="text" inputmode="numeric" autocomplete="off" placeholder="0"></span>
+          <span class="field__hint">Rent relief is 20% of rent paid, up to ₦500,000 a year. Leave at 0 if you do not pay rent.</span>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="other">NHF, health or life insurance (optional)</label>
+          <span class="money"><input id="other" type="text" inputmode="numeric" autocomplete="off" placeholder="0"></span>
+          <span class="field__hint">Reduces your taxable income and your take-home.</span>
+        </div>
+
+        <label class="check" for="pension-on">
+          <input id="pension-on" type="checkbox">
+          <span>My employer deducts 8% pension</span>
+        </label>
+        </div>
+
+        <div class="fields" id="student-fields" hidden>
+          <div class="field">
+            <label class="field__label" for="allowance">Monthly allowance</label>
+            <span class="money"><input id="allowance" type="text" inputmode="numeric" autocomplete="off" placeholder="0"></span>
+            <span class="field__hint">From parents, family or a sponsor. Allowances and gifts are not taxed.</span>
+          </div>
+          <div class="field">
+            <label class="field__label" for="side-income">Other income each month (optional)</label>
+            <span class="money"><input id="side-income" type="text" inputmode="numeric" autocomplete="off" placeholder="0"></span>
+            <span class="field__hint">Bursary, scholarship, side work or a small business.</span>
+          </div>
+          <div class="field">
+            <label class="field__label" for="hostel-fee">Hostel fee for the session</label>
+            <span class="money"><input id="hostel-fee" type="text" inputmode="numeric" autocomplete="off" placeholder="0"></span>
+            <span class="field__hint">What you pay for your room for the whole session. Leave at 0 if you do not pay it.</span>
+          </div>
+          <div class="field">
+            <label class="field__label" for="hostel-months">Months the session covers</label>
+            <input id="hostel-months" type="text" inputmode="numeric" autocomplete="off" placeholder="10">
+            <span class="field__hint">Most sessions run 9 to 12 months. The fee is spread over these months.</span>
+          </div>
+          <p class="field__hint">No tax is worked out for students. If you earn a salary, switch to Worker above.</p>
+        </div>
+      </section>
+
+      <section class="card" id="daily" aria-labelledby="daily-title">
+        <h2 id="daily-title">Add a daily expense</h2>
+        <form id="entry-form" class="entry-form" novalidate>
+          <div class="field">
+            <label class="field__label" for="entry-cat">Category</label>
+            <select id="entry-cat"></select>
+          </div>
+          <div class="field">
+            <label class="field__label" for="entry-amount">Amount</label>
+            <span class="money"><input id="entry-amount" type="text" inputmode="numeric" autocomplete="off" placeholder="0"></span>
+          </div>
+          <div class="field">
+            <label class="field__label" for="entry-date">Date</label>
+            <input id="entry-date" type="date">
+          </div>
+          <div class="field entry-form__note">
+            <label class="field__label" for="entry-note">Note (optional)</label>
+            <input id="entry-note" type="text" autocomplete="off" placeholder="Lunch, bus fare, market">
+          </div>
+          <button type="submit" class="btn">Add</button>
+        </form>
+        <p class="form-msg" id="entry-msg" role="status"></p>
+
+        <div>
+          <h3>Entries this month</h3>
+          <ul class="entries" id="entries"></ul>
+        </div>
+      </section>
+
+      <section class="card" id="goal" aria-labelledby="goal-title">
+        <h2 id="goal-title">Savings goal</h2>
+        <div class="field">
+          <label class="field__label" for="goal-target">What you are saving for (amount)</label>
+          <span class="money"><input id="goal-target" type="text" inputmode="numeric" autocomplete="off" placeholder="0"></span>
+        </div>
+        <div class="field">
+          <label class="field__label" for="goal-saved">Already saved</label>
+          <span class="money"><input id="goal-saved" type="text" inputmode="numeric" autocomplete="off" placeholder="0"></span>
+        </div>
+        <button class="btn" id="goal-update" type="button">Update savings goal</button>
+        <span class="bar" aria-hidden="true"><span class="bar__fill bar__fill--goal" id="goal-bar"></span></span>
+        <p id="goal-text" class="goal__text"></p>
+        <p id="goal-date" class="muted"></p>
+      </section>
+
+    </div>
+
+    <div class="col col--main">
+
+      <section class="card" id="alloc" aria-labelledby="alloc-title">
+        <h2 id="alloc-title">Where your take-home goes</h2>
+        <div class="alloc" id="alloc-bar" aria-hidden="true">
+          <span class="alloc__seg alloc__seg--needs" id="seg-needs"></span>
+          <span class="alloc__seg alloc__seg--wants" id="seg-wants"></span>
+          <span class="alloc__seg alloc__seg--savings" id="seg-savings"></span>
+          <span class="alloc__seg alloc__seg--left" id="seg-left"></span>
+        </div>
+        <ul class="legend">
+          <li><span class="swatch swatch--needs" aria-hidden="true"></span><span id="lg-needs"></span></li>
+          <li><span class="swatch swatch--wants" aria-hidden="true"></span><span id="lg-wants"></span></li>
+          <li><span class="swatch swatch--savings" aria-hidden="true"></span><span id="lg-savings"></span></li>
+          <li><span class="swatch swatch--left" aria-hidden="true"></span><span id="lg-left"></span></li>
+        </ul>
+        <p id="advice"></p>
+        <p class="muted" id="advice-2"></p>
+      </section>
+
+      <section class="card" id="spending" aria-labelledby="spending-title">
+        <div class="card__head">
+          <h2 id="spending-title">Monthly spending</h2>
+          <span class="pill" id="left-pill">Left over ₦0</span>
+        </div>
+        <p class="muted" id="spending-note">Enter what you spend in a typical month. Daily entries for the selected month are added on top. Percentages are shares of your take-home.</p>
+        <ul class="rows" id="rows"></ul>
+        <div class="total">
+          <span>Total spending</span>
+          <strong id="total-spent">₦0</strong>
+        </div>
+      </section>
+
+      <section class="card" id="tax" aria-labelledby="tax-title">
+        <h2 id="tax-title">How your tax is worked out</h2>
+        <div class="table" id="tax-steps" role="table" aria-label="From gross salary to chargeable income"></div>
+        <div class="scroll">
+          <div class="scroll__inner">
+            <div class="table" id="tax-bands" role="table" aria-label="Tax by band"></div>
+          </div>
+        </div>
+        <div class="table" id="tax-total" role="table" aria-label="Tax and take-home"></div>
+        <p class="note">This is an estimate. Your payslip or the Nigeria Revenue Service has your exact figure.</p>
+      </section>
+
+
+    </div>
+  </div>
+
+  <p class="footnote">
+    Estimates only. Tax rules follow the Nigeria Tax Act as in force from 1 January 2026 and can change. Your payslip and the Nigeria Revenue Service have the final say.
+  </p>
+</main>
+
+<script src="js/nigeria-tax.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
