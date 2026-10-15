@@ -24,10 +24,6 @@ then run the tests:
 
     node tests/tax.test.js
 
-## Put it online
-
-Upload the folder to a free host such as GitHub Pages or Netlify. It is a static site,
-so no build step is needed.
 
 ## Notes
 
